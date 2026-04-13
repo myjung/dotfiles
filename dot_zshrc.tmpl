@@ -1,0 +1,40 @@
+# ===== 기본 옵션 =====
+setopt AUTO_CD              # 디렉터리명만 입력해도 cd
+setopt EXTENDED_GLOB        # **/*.py 같은 재귀 글롭
+setopt NO_BEEP              # 경고음 끄기
+setopt INTERACTIVE_COMMENTS # 인터랙티브에서도 # 주석 허용
+setopt PUSHD_IGNORE_DUPS    # pushd 중복 제거
+setopt AUTO_PUSHD           # cd 할 때 자동으로 dirstack에 추가
+
+# ===== 히스토리 =====
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY        # 여러 zsh 세션 간 히스토리 공유
+setopt HIST_IGNORE_DUPS     # 직전과 같은 명령 저장 안 함
+setopt HIST_IGNORE_SPACE    # 공백으로 시작하는 명령은 저장 안 함
+setopt HIST_REDUCE_BLANKS
+
+# ===== 자동완성 =====
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# ===== 키 바인딩 =====
+bindkey -e                  # Emacs 키 바인딩 (bash와 동일)
+bindkey '^[[A' history-search-backward   # 위 화살표: 히스토리 검색
+bindkey '^[[B' history-search-forward    # 아래 화살표: 히스토리 검색
+
+# ===== 공통 셸 설정 =====
+[ -f ~/.config/shell/common.sh ] && . ~/.config/shell/common.sh
+
+# ===== Starship 프롬프트 =====
+eval "$(starship init zsh)"
+
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+# ===== sdkman =====
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+{{ end -}}
