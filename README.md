@@ -72,8 +72,7 @@ dotfiles/
 
 | 항목 | 값 |
 |------|----|
-| `EDITOR` | nvim |
-| `LANG` / `LC_ALL` | ko_KR.UTF-8 |
+| `EDITOR` | vim |
 | nvm | `~/.nvm` 자동 로드 |
 
 **별칭:**
@@ -96,7 +95,7 @@ dotfiles/
 **프롬프트 레이아웃:**
 
 ```
-[ user ][ @hostname ][ ~/path ][  branch status  ]        [took Xs] [HH:MM]
+[ user ][ @hostname ][ ~/path ][  branch status  ] [took Xs] [HH:MM]
 ❯
 ```
 
@@ -104,7 +103,7 @@ dotfiles/
 |----------|------|------|
 | 유저명 | `#7aa2f7` on `#1a1b26` | 항상 표시. root일 때 `#1a1b26` on `#f7768e` (빨간 배경 반전) |
 | 호스트명 | `#7dcfff` on `#1a1b26` | 항상 표시. SSH 접속 시 `ssh:@hostname` 형태로 prefix 추가 |
-| 디렉터리 | `#c0caf5` on `#16213e` | 현재 경로 (최대 4단계) |
+| 디렉터리 | `#c0caf5` on `#16213e` | `~` 기준 전체 경로 (최대 10단계, 초과 시 `…/` 생략) |
 | git branch | `#7aa2f7` on `#0f3460` | 브랜치명 (` ` Powerline 심볼) |
 | git status | 상태별 색상 | `+`staged `~`modified `?`untracked `⇡`ahead `⇣`behind |
 | 언어 버전 | 각 언어별 색상 | py: / node: / rs: / go: / java: |

@@ -2,12 +2,8 @@
 export PATH="$HOME/.local/bin:$PATH"
 
 # ===== 편집기 =====
-export EDITOR="${EDITOR:-nvim}"
+export EDITOR="${EDITOR:-vim}"
 export VISUAL="$EDITOR"
-
-# ===== 언어 =====
-export LANG="ko_KR.UTF-8"
-export LC_ALL="ko_KR.UTF-8"
 
 # ===== XDG =====
 export XDG_CONFIG_HOME="$HOME/.config"
