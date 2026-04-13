@@ -96,12 +96,14 @@ dotfiles/
 **프롬프트 레이아웃:**
 
 ```
-[bg:#1a1b26][  dir  ][bg:#16213e][  branch status  ][bg:#0f3460]        [took Xs] [HH:MM]
+[ user ][ @hostname ][ ~/path ][  branch status  ]        [took Xs] [HH:MM]
 ❯
 ```
 
 | 세그먼트 | 색상 | 내용 |
 |----------|------|------|
+| 유저명 | `#7aa2f7` on `#1a1b26` | 항상 표시. root일 때 `#1a1b26` on `#f7768e` (빨간 배경 반전) |
+| 호스트명 | `#7dcfff` on `#1a1b26` | 항상 표시. SSH 접속 시 `ssh:@hostname` 형태로 prefix 추가 |
 | 디렉터리 | `#c0caf5` on `#16213e` | 현재 경로 (최대 4단계) |
 | git branch | `#7aa2f7` on `#0f3460` | 브랜치명 (` ` Powerline 심볼) |
 | git status | 상태별 색상 | `+`staged `~`modified `?`untracked `⇡`ahead `⇣`behind |
@@ -109,6 +111,14 @@ dotfiles/
 | 소요 시간 | `#565f89` | 2초 이상 명령에만 표시 |
 | 시각 | `#565f89` | HH:MM |
 | 입력 문자 | 초록/빨강 | `❯` (성공/실패) |
+
+**상황별 프롬프트:**
+
+| 상황 | 표시 |
+|------|------|
+| 일반 로컬 | `[ rey ][ @hostname ]` |
+| SSH 접속 | `[ rey ][ ssh:@hostname ]` |
+| root | 빨간 배경 `[ root ][ @hostname ]` |
 
 **주의:** D2Coding Ligature는 Powerline 기본 심볼(U+E0A0–U+E0B3)만 지원한다. Nerd Font 아이콘은 사용하지 않는다.
 

@@ -34,14 +34,15 @@ add_newline = true
 # ─────────────────────────────── 사용자/호스트 ───
 [username]
 style_user = "bg:#1a1b26 fg:#7aa2f7"
-style_root = "bg:#1a1b26 fg:#f7768e bold"
+style_root = "bg:#f7768e fg:#1a1b26 bold"   # root: 빨간 배경 반전
 format = "[ $user ]($style)"
-show_always = false   # SSH·root일 때만 표시
+show_always = true
 
 [hostname]
-ssh_only = true
+ssh_only = false
 style = "bg:#1a1b26 fg:#7dcfff"
-format = "[@$hostname ]($style)"
+ssh_symbol = "ssh:"
+format = "[ $ssh_symbol@$hostname ]($style)"   # SSH 시: [ ssh:@hostname ]
 
 # ─────────────────────────────── 디렉터리 ───
 [directory]
