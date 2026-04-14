@@ -7,7 +7,7 @@ Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop)와 Fedora(laptop
 - **chezmoi** v2.70.1 (`/snap/bin/chezmoi`) — dotfiles 관리자
 - **zsh** — 기본 셸
 - **starship** — 프롬프트
-- **D2Coding Ligature** — 터미널 폰트 (Powerline 기본 심볼만 지원, Nerd Font 미지원)
+- **D2Coding Nerd Font Ligature** — 한글 + Nerd 아이콘 + 리가처 통합 폰트
 
 ## chezmoi 규칙
 - 소스 디렉터리: `~/.local/share/chezmoi` (= GitHub repo 루트)
@@ -42,14 +42,10 @@ OS 분기 예시:
 
 ## 금지 사항
 - 셸 설정에 git alias(`g`, `ga`, `gc` 등) 추가 금지
-- D2Coding이 지원하지 않는 Nerd Font 아이콘 사용 금지 (starship 설정 포함)
 - `~/.zshrc` 등 홈 디렉터리 파일을 chezmoi를 거치지 않고 직접 수정 금지
 
-## 폰트 제약 (starship.toml 작성 시)
-D2Coding Ligature가 지원하는 범위:
-- Powerline: `` `` `` `` `` `` `` `` (U+E0A0–U+E0B3) ✓
-- 일반 유니코드 기호: `❯` `❮` `⇡` `⇣` `⇕` `…` ✓
-- Nerd Font 전용 아이콘 (U+E700 이상 PUA 영역 대부분) ✗
+## 폰트
+D2Coding Nerd Font Ligature 사용. 한글 글리프 + Nerd 아이콘(U+E700+ PUA) + 리가처가 모두 한 폰트에 통합되어 있어요. starship 등에서 Nerd Font 아이콘 자유롭게 사용 가능.
 
 ## 작업 흐름
 ```sh
