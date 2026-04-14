@@ -3,258 +3,252 @@
 # Tokyo Night preset + Nerd Font Symbols 통합
 format = """
 [░▒▓](#a3aed2)\
-[  ](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
+[](fg:#769ff0 bg:#394260)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
+[](fg:#394260 bg:#212736)\
 $nodejs\
 $rust\
 $golang\
 $php\
-[](fg:#212736 bg:#1d2230)\
+[](fg:#212736 bg:#1d2230)\
 $time\
-[ ](fg:#1d2230)\
-$line_break\
-$character"""
+[ ](fg:#1d2230)\
+\n$character"""
 
-# ── directory ──────────────────────────────────────────────────────
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
-format = "[ $path ]($style)"
+style = 'fg:#e3e5e5 bg:#769ff0'
+format = '[ $path ]($style)'
 truncation_length = 3
-truncation_symbol = "…/"
-read_only = " 󰌾"
+truncation_symbol = '…/'
 
 [directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music"     = " "
-"Pictures"  = " "
+Documents = '󰈙 '
+Downloads = ' '
+Music = ' '
+Pictures = ' '
 
-# ── git ────────────────────────────────────────────────────────────
 [git_branch]
-symbol = " "
-style = "bg:#394260"
+symbol = ' '
+style = 'bg:#394260'
 format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
 [git_status]
-style = "bg:#394260"
+style = 'bg:#394260'
 format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
-[git_commit]
-tag_symbol = '  '
-
-# ── languages (in format) ──────────────────────────────────────────
 [nodejs]
-symbol = " "
-style = "bg:#212736"
+symbol = ' '
+style = 'bg:#212736'
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [rust]
-symbol = "󱘗 "
-style = "bg:#212736"
+symbol = '󱘗 '
+style = 'bg:#212736'
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [golang]
-symbol = " "
-style = "bg:#212736"
+symbol = ' '
+style = 'bg:#212736'
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [php]
-symbol = " "
-style = "bg:#212736"
+symbol = ' '
+style = 'bg:#212736'
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
-# ── time ───────────────────────────────────────────────────────────
 [time]
 disabled = false
-time_format = "%R"
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+time_format = '%R'
+style = 'bg:#1d2230'
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
-# ── Nerd Font symbol overrides (format 외 모듈) ────────────────────
 [aws]
-symbol = " "
+symbol = ' '
 
 [buf]
-symbol = " "
+symbol = ' '
 
 [bun]
-symbol = " "
+symbol = ' '
 
 [c]
-symbol = " "
-
-[cmake]
-symbol = " "
-
-[conda]
-symbol = " "
+symbol = ' '
 
 [cpp]
-symbol = " "
+symbol = ' '
+
+[cmake]
+symbol = ' '
+
+[conda]
+symbol = ' '
 
 [crystal]
-symbol = " "
+symbol = ' '
 
 [dart]
-symbol = " "
+symbol = ' '
 
 [deno]
-symbol = " "
+symbol = ' '
 
 [docker_context]
-symbol = " "
+symbol = ' '
 
 [elixir]
-symbol = " "
+symbol = ' '
 
 [elm]
-symbol = " "
+symbol = ' '
 
 [fennel]
-symbol = " "
+symbol = ' '
+
+[fortran]
+symbol = ' '
 
 [fossil_branch]
-symbol = " "
+symbol = ' '
 
 [gcloud]
-symbol = " "
+symbol = ' '
+
+[git_commit]
+tag_symbol = '  '
 
 [gradle]
-symbol = " "
+symbol = ' '
 
 [guix_shell]
-symbol = " "
+symbol = ' '
 
 [haskell]
-symbol = " "
+symbol = ' '
 
 [haxe]
-symbol = " "
+symbol = ' '
 
 [hg_branch]
-symbol = " "
+symbol = ' '
 
 [hostname]
-ssh_symbol = " "
+ssh_symbol = ' '
 
 [java]
-symbol = " "
+symbol = ' '
 
 [julia]
-symbol = " "
+symbol = ' '
 
 [kotlin]
-symbol = " "
+symbol = ' '
 
 [lua]
-symbol = " "
-
-[maven]
-symbol = " "
+symbol = ' '
 
 [memory_usage]
-symbol = "󰍛 "
+symbol = '󰍛 '
 
 [meson]
-symbol = "󰔷 "
+symbol = '󰔷 '
 
 [nim]
-symbol = "󰆥 "
+symbol = '󰆥 '
 
 [nix_shell]
-symbol = " "
+symbol = ' '
 
 [ocaml]
-symbol = " "
+symbol = ' '
+
 
 [os.symbols]
-Alpaquita         = " "
-Alpine            = " "
-AlmaLinux         = " "
-Amazon            = " "
-Android           = " "
-AOSC              = " "
-Arch              = " "
-Artix             = " "
-CachyOS           = " "
-CentOS            = " "
-Debian            = " "
-DragonFly         = " "
-Elementary        = " "
-Emscripten        = " "
-EndeavourOS       = " "
-Fedora            = " "
-FreeBSD           = " "
-Garuda            = "󰛓 "
-Gentoo            = " "
-HardenedBSD       = "󰞌 "
-Illumos           = "󰈸 "
-Ios               = "󰀷 "
-Kali              = " "
-Linux             = " "
-Mabox             = " "
-Macos             = " "
-Manjaro           = " "
-Mariner           = " "
-MidnightBSD       = " "
-Mint              = " "
-NetBSD            = " "
-NixOS             = " "
-Nobara            = " "
-OpenBSD           = "󰈺 "
-openSUSE          = " "
-OracleLinux       = "󰌷 "
-Pop               = " "
-Raspbian          = " "
-Redhat            = " "
-RedHatEnterprise  = " "
-RockyLinux        = " "
-Redox             = "󰀘 "
-Solus             = "󰠳 "
-SUSE              = " "
-Ubuntu            = " "
-Unknown           = " "
-Void              = " "
-Windows           = "󰍲 "
-Zorin             = " "
+Alpaquita = ' '
+Alpine = ' '
+AlmaLinux = ' '
+Amazon = ' '
+Android = ' '
+AOSC = ' '
+Arch = ' '
+Artix = ' '
+CachyOS = ' '
+CentOS = ' '
+Debian = ' '
+DragonFly = ' '
+Elementary = ' '
+Emscripten = ' '
+EndeavourOS = ' '
+Fedora = ' '
+FreeBSD = ' '
+Garuda = '󰛓 '
+Gentoo = ' '
+HardenedBSD = '󰞌 '
+Illumos = '󰈸 '
+Ios = '󰀷 '
+Kali = ' '
+Linux = ' '
+Mabox = ' '
+Macos = ' '
+Manjaro = ' '
+Mariner = ' '
+MidnightBSD = ' '
+Mint = ' '
+NetBSD = ' '
+NixOS = ' '
+Nobara = ' '
+OpenBSD = '󰈺 '
+openSUSE = ' '
+OracleLinux = '󰌷 '
+Pop = ' '
+Raspbian = ' '
+Redhat = ' '
+RedHatEnterprise = ' '
+RockyLinux = ' '
+Redox = '󰀘 '
+Solus = '󰠳 '
+SUSE = ' '
+Ubuntu = ' '
+Unknown = ' '
+Void = ' '
+Windows = '󰍲 '
+Zorin = ' '
 
 [package]
-symbol = "󰏗 "
+symbol = '󰏗 '
 
 [perl]
-symbol = " "
+symbol = ' '
 
 [pijul_channel]
-symbol = " "
+symbol = ' '
 
 [pixi]
-symbol = "󰏗 "
+symbol = '󰏗 '
 
 [python]
-symbol = " "
+symbol = ' '
 
 [rlang]
-symbol = "󰟔 "
+symbol = '󰟔 '
 
 [ruby]
-symbol = " "
+symbol = ' '
 
 [scala]
-symbol = " "
+symbol = ' '
 
 [status]
-symbol = " "
+symbol = ' '
 
 [swift]
-symbol = " "
+symbol = ' '
 
 [xmake]
-symbol = " "
+symbol = ' '
 
 [zig]
-symbol = " "
+symbol = ' '
