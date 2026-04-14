@@ -23,14 +23,9 @@ sudo snap install chezmoi --classic
 # chezmoi 설치 (Fedora)
 sudo dnf install chezmoi
 
-# dotfiles 초기화
-chezmoi init https://github.com/myjung/dotfiles.git
-
-# ~/.config/chezmoi/chezmoi.toml 편집 후 role 값 설정
-#   desktop (Ubuntu) 또는 laptop (Fedora)
-
-# 적용
-chezmoi apply
+# dotfiles 초기화 + 적용 (role 입력 프롬프트 자동 실행)
+chezmoi init --apply https://github.com/myjung/dotfiles.git
+# Role (desktop/laptop): desktop   ← 환경에 맞게 입력
 ```
 
 ### starship 설치
@@ -44,7 +39,8 @@ curl -sS https://starship.rs/install.sh | sh
 ## 파일 구조
 
 ```
-dotfiles/
+~/.local/share/chezmoi/   (= GitHub repo 루트)
+├── .chezmoi.toml.tmpl             → ~/.config/chezmoi/chezmoi.toml (init 시 자동 생성)
 ├── dot_zshrc.tmpl                 → ~/.zshrc
 └── dot_config/
     ├── shell/
@@ -141,14 +137,6 @@ chezmoi add ~/.config/some/file
 # GitHub 동기화
 git add -p && git commit -m "..."
 git push
-```
-
-### Fedora 노트북 추가 시
-
-`~/.config/chezmoi/chezmoi.toml`에서:
-```toml
-[data]
-  role = "laptop"
 ```
 
 ---

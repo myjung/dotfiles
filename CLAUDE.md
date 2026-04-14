@@ -10,11 +10,10 @@ Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop)와 Fedora(laptop
 - **D2Coding Ligature** — 터미널 폰트 (Powerline 기본 심볼만 지원, Nerd Font 미지원)
 
 ## chezmoi 규칙
-- 소스 디렉터리: `~/Projects/dotfiles`
-- 설정: `~/.config/chezmoi/chezmoi.toml`
+- 소스 디렉터리: `~/.local/share/chezmoi` (= GitHub repo 루트)
+- 설정 템플릿: `~/.local/share/chezmoi/.chezmoi.toml.tmpl` → init 시 `~/.config/chezmoi/chezmoi.toml` 자동 생성
 - **파일 추가 시**: `chezmoi add <파일>` 또는 소스 디렉터리에 직접 생성 후 `chezmoi apply`
 - **확인**: `chezmoi diff` → 문제 없으면 `chezmoi apply`
-- **절대로** `~/.local/share/chezmoi`에 파일을 쓰지 말 것
 
 ## 파일 네이밍 규칙 (chezmoi)
 | 소스 패턴 | 대상 |
@@ -44,7 +43,7 @@ OS 분기 예시:
 ## 금지 사항
 - 셸 설정에 git alias(`g`, `ga`, `gc` 등) 추가 금지
 - D2Coding이 지원하지 않는 Nerd Font 아이콘 사용 금지 (starship 설정 포함)
-- `~/.local/share/chezmoi`에 직접 파일 작성 금지
+- `~/.zshrc` 등 홈 디렉터리 파일을 chezmoi를 거치지 않고 직접 수정 금지
 
 ## 폰트 제약 (starship.toml 작성 시)
 D2Coding Ligature가 지원하는 범위:
