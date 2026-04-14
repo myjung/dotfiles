@@ -103,24 +103,24 @@ Docker, Wine, Claude Code는 별도 — [setup/README.md](./setup/README.md) 참
 
 ### starship 프롬프트 (`dot_config/starship.toml`)
 
-**색상 테마:** Tokyo Night
+**통합 프리셋:** 공식 [Tokyo Night](https://starship.rs/presets/tokyo-night) + [Nerd Font Symbols](https://starship.rs/presets/nerd-font-symbols)
 
 ```
-[ user ][ @hostname ][ ~/path ][  branch status  ] [took Xs] [HH:MM]
+░▒▓  ▓[ ~/path ][  branch  status ][ node ver ][ rust ver ][ HH:MM ]
 ❯
 ```
 
 | 세그먼트 | 색상 | 내용 |
 |----------|------|------|
-| 유저명 | `#7aa2f7` on `#1a1b26` | 항상 표시. root일 때 `#1a1b26` on `#f7768e` (빨간 배경 반전) |
-| 호스트명 | `#7dcfff` on `#1a1b26` | 항상 표시. SSH 접속 시 `ssh:@hostname` prefix |
-| 디렉터리 | `#c0caf5` on `#16213e` | `~` 기준 전체 경로 (최대 10단계, 초과 시 `…/` 생략) |
-| git branch | `#7aa2f7` on `#0f3460` | 브랜치명 (Powerline 심볼) |
-| git status | 상태별 색상 | `+`staged `~`modified `?`untracked `⇡`ahead `⇣`behind |
-| 언어 버전 | 각 언어별 색상 | py: / node: / rs: / go: / java: |
-| 소요 시간 | `#565f89` | 2초 이상 명령에만 표시 |
-| 시각 | `#565f89` | HH:MM |
-| 입력 문자 | 초록/빨강 | `❯` (성공/실패) |
+| 헤더 | `#a3aed2` | `░▒▓` + OS 아이콘 |
+| 디렉터리 | `#e3e5e5` on `#769ff0` | 경로 (최대 3단계, 초과 시 `…/`). Documents/Downloads 등 아이콘 치환 |
+| git branch | `#769ff0` on `#394260` |  + 브랜치명 |
+| git status | `#769ff0` on `#394260` | `+`staged `~`modified `?`untracked `⇡`ahead `⇣`behind |
+| 언어 버전 | `#769ff0` on `#212736` | Nerd Font 아이콘 + 버전 (node / rust / go / php 등) |
+| 시각 | `#a0a9cb` on `#1d2230` |  + HH:MM |
+| 입력 문자 | `#769ff0` / 빨강 | `❯` (성공/실패) |
+
+모든 언어·도구 심볼(python, java, kotlin, docker 등)은 Nerd Font Symbols 프리셋 기준 아이콘으로 설정되어 있습니다.
 
 ---
 
