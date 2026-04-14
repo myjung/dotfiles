@@ -6,7 +6,7 @@ Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop)와 Fedora(laptop
 ## 도구 스택
 - **chezmoi** v2.70.1 (`/snap/bin/chezmoi`) — dotfiles 관리자
 - **zsh** — 기본 셸
-- **starship** — 프롬프트
+- **starship** — 프롬프트 (Tokyo Night + Nerd Font Symbols 통합 프리셋)
 - **D2Coding Nerd Font Ligature** — 한글 + Nerd 아이콘 + 리가처 통합 폰트
 
 ## chezmoi 규칙
