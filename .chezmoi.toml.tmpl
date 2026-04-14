@@ -1,10 +1,12 @@
-{{- $role := promptStringOnce . "role" "Role (desktop/laptop)" -}}
+{{- $name  := promptStringOnce . "name"  "Name"  "rey" -}}
+{{- $email := promptStringOnce . "email" "Email" "jmy1330@gmail.com" -}}
+{{- $role  := promptChoiceOnce . "role"  "Role"  (list "desktop" "laptop") -}}
 
 [data]
-    name = "rey"
-    email = "jmy1330@gmail.com"
-    role = {{ $role | quote }}
+    name  = {{ $name  | quote }}
+    email = {{ $email | quote }}
+    role  = {{ $role  | quote }}
 
 [git]
     autoCommit = false
-    autoPush = false
+    autoPush   = false
