@@ -106,21 +106,21 @@ Docker, Wine, Claude Code는 별도 — [setup/README.md](./setup/README.md) 참
 **통합 프리셋:** 공식 [Tokyo Night](https://starship.rs/presets/tokyo-night) + [Nerd Font Symbols](https://starship.rs/presets/nerd-font-symbols)
 
 ```
-░▒▓  ▓[ ~/path ][  branch  status ][ node ver ][ rust ver ][ HH:MM ]
+░▒▓ [ user@host os ][ ~/path ][ branch status ][ node c cpp py ][ cmd time ]
 ❯
 ```
 
 | 세그먼트 | 색상 | 내용 |
 |----------|------|------|
-| 헤더 | `#a3aed2` | `░▒▓` + OS 아이콘 |
-| 디렉터리 | `#e3e5e5` on `#769ff0` | 경로 (최대 3단계, 초과 시 `…/`). Documents/Downloads 등 아이콘 치환 |
-| git branch | `#769ff0` on `#394260` |  + 브랜치명 |
-| git status | `#769ff0` on `#394260` | `+`staged `~`modified `?`untracked `⇡`ahead `⇣`behind |
-| 언어 버전 | `#769ff0` on `#212736` | Nerd Font 아이콘 + 버전 (node / rust / go / php 등) |
-| 시각 | `#a0a9cb` on `#1d2230` |  + HH:MM |
-| 입력 문자 | `#769ff0` / 빨강 | `❯` (성공/실패) |
+| 헤더 | `#b8e0c8` → `#7ec8a0` | `░▒▓` + `user@hostname` + OS 아이콘 |
+| 디렉터리 | `#f0faf4` on `#4aab7a` | 경로 (최대 5단계, 초과 시 `…/`). Documents/Downloads 등 아이콘 치환 |
+| git branch | `#d4f5e5` on `#2d8a5e` | `` + 브랜치명 |
+| git status | `#a3f0c0`/`#f0e0a0` 등 on `#2d8a5e` | `+`staged `~`modified `?`untracked `-`deleted `⇡`ahead `⇣`behind |
+| 개발 언어 | `#a3f0c0` 계열 on `#1a6644` | 현재 라인에는 `node`, `c`, `cpp`, `python`만 표시 |
+| 실행/시각 | `#5aaa7a` on `#0f3d2a` | `󱎫` + 실행시간(2초 이상) + `HH:MM:SS` |
+| 입력 문자 | 녹색/빨강 | `❯` (성공/실패), Vim 모드 `❮` |
 
-모든 언어·도구 심볼(python, java, kotlin, docker 등)은 Nerd Font Symbols 프리셋 기준 아이콘으로 설정되어 있습니다.
+`rust`, `golang`, `php` 등 다른 모듈 심볼도 정의되어 있지만, 현재 `format` 문자열에 포함되지 않아 기본 프롬프트 라인에는 표시되지 않습니다.
 
 ---
 
