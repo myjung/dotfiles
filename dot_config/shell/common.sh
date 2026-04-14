@@ -2,7 +2,7 @@
 export PATH="$HOME/.local/bin:$PATH"
 
 # ===== 편집기 =====
-export EDITOR="${EDITOR:-vim}"
+export EDITOR="${EDITOR:-vi}"
 export VISUAL="$EDITOR"
 
 # ===== XDG =====
