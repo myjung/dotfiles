@@ -1,0 +1,10 @@
+{{- $role := promptStringOnce . "role" "Role (desktop/laptop)" -}}
+
+[data]
+    name = "rey"
+    email = "jmy1330@gmail.com"
+    role = {{ $role | quote }}
+
+[git]
+    autoCommit = false
+    autoPush = false
