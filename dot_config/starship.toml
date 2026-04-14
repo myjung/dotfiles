@@ -2,28 +2,51 @@
 
 # Tokyo Night preset + Nerd Font Symbols 통합
 format = """
-[░▒▓](#a3aed2)\
-[  ](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[░▒▓](#b8e0c8)\
+$username\
+$hostname\
+$os\
+[](bg:#4aab7a fg:#7ec8a0)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
+[](fg:#4aab7a bg:#2d8a5e)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
+[](fg:#2d8a5e bg:#1a6644)\
 $nodejs\
-$rust\
-$golang\
-$php\
-[](fg:#212736 bg:#1d2230)\
+$c\
+$cpp\
+$python\
+[](fg:#1a6644 bg:#0f3d2a)\
+$cmd_duration\
 $time\
-[ ](fg:#1d2230)\
+[](fg:#0f3d2a)\
 \n$character"""
 
+add_newline = true
+
+[username]
+style_user = "bg:#7ec8a0 fg:#0d2b1a"
+style_root = "bg:#f09090 fg:#0d2b1a bold"
+format = "[ $user]($style)"
+show_always = true
+
+[hostname]
+ssh_only = false
+style = "bg:#7ec8a0 fg:#0d2b1a"
+format = "[@$hostname$ssh_symbol ]($style)"
+ssh_symbol = " "   # SSH 접속 시에만 이 심볼이 붙음
+
+[os]
+disabled = false
+style = "bg:#7ec8a0 fg:#0d2b1a"
+format = "[ $symbol ]($style)"
+
 [directory]
-style = 'fg:#e3e5e5 bg:#769ff0'
-format = '[ $path ]($style)'
-truncation_length = 3
-truncation_symbol = '…/'
+style = "bg:#4aab7a fg:#f0faf4"
+format = "[ $path ]($style)"
+truncation_length = 5
+truncate_to_repo = false
+truncation_symbol = "…/"
 
 [directory.substitutions]
 Documents = '󰈙 '
@@ -32,39 +55,69 @@ Music = ' '
 Pictures = ' '
 
 [git_branch]
-symbol = ' '
-style = 'bg:#394260'
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+symbol = " "
+style = "bg:#2d8a5e fg:#d4f5e5"
+format = "[ $symbol$branch ]($style)"
+truncation_length = 24
 
 [git_status]
-style = 'bg:#394260'
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#2d8a5e"
+format = '([$all_status$ahead_behind]($style))'
+ahead = "[⇡${count}](bg:#2d8a5e fg:#a3f0c0)"
+behind = "[⇣${count}](bg:#2d8a5e fg:#f0e0a0)"
+diverged = "[⇕⇡${ahead_count}⇣${behind_count}](bg:#2d8a5e fg:#f09090)"
+staged = "[+${count}](bg:#2d8a5e fg:#a3f0c0)"
+modified = "[~${count}](bg:#2d8a5e fg:#f0e0a0)"
+untracked = "[?${count}](bg:#2d8a5e fg:#8abf8a)"
+deleted = "[-${count}](bg:#2d8a5e fg:#f09090)"
+stashed = "[s${count}](bg:#2d8a5e fg:#c0a0f0)"
+conflicted = "[!!](bg:#2d8a5e fg:#f09090 bold)"
+
+
+[python]
+symbol = ' '
+style = "bg:#1a6644 fg:#a3f0c0"
+format = '[ $symbol${version}(\($virtualenv\)) ]($style)'
+detect_folders = [".venv", "venv"]
 
 [nodejs]
 symbol = ' '
-style = 'bg:#212736'
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#1a6644 fg:#d4f5e8"
+format = "[ $symbol$version ]($style)"
+detect_files = ["package.json", ".nvmrc"]
 
 [rust]
 symbol = '󱘗 '
-style = 'bg:#212736'
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#1a6644 fg:#f0c0a0"
+format = "[ $symbol$version ]($style)"
 
 [golang]
 symbol = ' '
-style = 'bg:#212736'
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#1a6644 fg:#a0d4f0"
+format = "[ $symbol$version ]($style)"
 
 [php]
 symbol = ' '
-style = 'bg:#212736'
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#1a6644 fg:#c0a0f0"
+format = "[ $symbol$version ]($style)"
+
+[cmd_duration]
+min_time = 2_000
+style = "bg:#0f3d2a fg:#5aaa7a"
+format = "[ 󱎫 $duration ]($style)"
+
 
 [time]
 disabled = false
-time_format = '%R'
-style = 'bg:#1d2230'
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+time_format = "%H:%M:%S"
+style = "bg:#0f3d2a fg:#5aaa7a"
+format = "[ $time ]($style)"
+
+[character]
+success_symbol = "[❯](bold fg:#7ec8a0)"
+error_symbol = "[❯](bold fg:#f09090)"
+vimcmd_symbol = "[❮](bold fg:#4aab7a)"
+
 
 [aws]
 symbol = ' '
@@ -134,9 +187,6 @@ symbol = ' '
 
 [hg_branch]
 symbol = ' '
-
-[hostname]
-ssh_symbol = ' '
 
 [java]
 symbol = ' '
@@ -229,8 +279,6 @@ symbol = ' '
 [pixi]
 symbol = '󰏗 '
 
-[python]
-symbol = ' '
 
 [rlang]
 symbol = '󰟔 '
