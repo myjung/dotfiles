@@ -40,6 +40,10 @@ bash ~/.local/share/chezmoi/setup/install.sh
 ├── dot_config/
 │   ├── shell/common.sh            → ~/.config/shell/common.sh
 │   └── starship.toml              → ~/.config/starship.toml
+├── dot_claude/
+│   └── skills/vault/SKILL.md      → ~/.claude/skills/vault/SKILL.md
+├── private_dot_local/
+│   └── bin/symlink_vault.tmpl     → ~/.local/bin/vault (symlink → ~/knowledge-vault/bin/vault)
 └── setup/                         패키지 설치 스크립트 (chezmoi 무시)
     ├── install.sh                 Ubuntu/Fedora 공통 설치
     ├── README.md                  Docker/Wine 등 별도 설치 안내
@@ -80,6 +84,7 @@ Docker, Wine, Claude Code는 별도 — [setup/README.md](./setup/README.md) 참
 | `bindkey -e` | Emacs 키 바인딩 |
 | 위/아래 화살표 | 히스토리 접두어 검색 |
 | sdkman | Ubuntu에서만 로드 (템플릿 분기) |
+| `VAULT_ROOT` | `$HOME/knowledge-vault` export (knowledge-vault 연동) |
 
 ### 공통 환경 (`dot_config/shell/common.sh`)
 
@@ -121,6 +126,20 @@ Docker, Wine, Claude Code는 별도 — [setup/README.md](./setup/README.md) 참
 | 입력 문자 | 녹색/빨강 | `❯` (성공/실패), Vim 모드 `❮` |
 
 `rust`, `golang`, `php` 등 다른 모듈 심볼도 정의되어 있지만, 현재 `format` 문자열에 포함되지 않아 기본 프롬프트 라인에는 표시되지 않습니다.
+
+### knowledge-vault 연동
+
+개인 LLM 지식 vault([knowledge-vault](https://github.com/myjung/knowledge-vault))를 다른 프로젝트 디렉토리의 Claude 세션에서 read-only로 조회하고, inbox로 메모를 drop하기 위한 설정이다. 상세 설계는 vault 저장소의 `CLAUDE.md §13` 참조.
+
+| 컴포넌트 | 소스 경로 | 대상 |
+|---|---|---|
+| Claude skill | `dot_claude/skills/vault/SKILL.md` | `~/.claude/skills/vault/SKILL.md` |
+| CLI 심볼릭 링크 | `private_dot_local/bin/symlink_vault.tmpl` | `~/.local/bin/vault` → `~/knowledge-vault/bin/vault` |
+| 환경변수 | `dot_zshrc.tmpl` 말미 | `VAULT_ROOT="$HOME/knowledge-vault"` |
+
+CLI 본체(`bin/vault`)는 vault 저장소에서 관리되며 이 dotfiles에는 포함되지 않는다. `~/knowledge-vault` 가 존재하지 않으면 symlink는 dangling 상태가 되지만 다른 설정에는 영향이 없다.
+
+외부 프로젝트 세션에서 `/vault` 슬래시 명령으로 skill을 활성화하면, Claude가 `vault context` 로 사용자 profile과 vault 운영 규약을 적재한 뒤 필요 시 `vault search` / `vault show` / `vault inbox` 를 능동적으로 호출한다.
 
 ---
 
