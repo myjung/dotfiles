@@ -31,6 +31,7 @@ alias egrep='egrep --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias kv='cd ~/knowledge-vault'
 
 # ===== 별칭: 기타 =====
 alias cls='clear'
