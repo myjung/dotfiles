@@ -17,7 +17,7 @@ skill 활성화 직후 다음을 실행하여 사용자 profile과 vault 운영 
 vault context
 ```
 
-출력에는 `wiki/entities/me/profile.md` (사용자 identity·경력·프로젝트)와 `wiki/meta/quickref.md` (vault 운영 원칙 축약본)가 포함된다. quickref의 규칙(Navigation Protocol, Ownership Model, Cognitive Guardrails 등)은 이 외부 세션에도 적용된다.
+출력에는 `wiki/entities/me/profile-summary.md` (세션 부트스트랩용 identity 요약)와 `wiki/meta/quickref.md` (vault 운영 원칙 축약본)가 포함된다. 경력·프로젝트 전체는 `vault show profile`, 개발 환경 전체는 `vault show dev-environment` 로 추가 조회. quickref의 규칙(Navigation Protocol, Ownership Model, Cognitive Guardrails 등)은 이 외부 세션에도 적용된다.
 
 ## 읽기 명령
 
