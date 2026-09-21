@@ -9,7 +9,7 @@ Rey의 개인 환경 설정. [chezmoi](https://www.chezmoi.io/)로 관리하며 
 | OS | Ubuntu 25.10 / 26.04 LTS (desktop), Fedora 43 / 44 (laptop) |
 | Shell | zsh |
 | Prompt | starship |
-| Font | D2Coding Nerd Font (Ligature) — 한글 + Nerd 아이콘 + 리가처 통합 |
+| Font | D2Koding Nerd Font (Ligature) — 한글 + Nerd 아이콘 + 리가처 통합 |
 | 관리 도구 | chezmoi |
 
 ---
@@ -59,7 +59,7 @@ bash ~/.local/share/chezmoi/setup/install.sh
 
 | 범주 | 항목 |
 |---|---|
-| 폰트 | D2Coding Nerd Font Ligature, Noto CJK KR (Sans/Serif/Mono) |
+| 폰트 | D2Koding Nerd Font Ligature, Noto CJK KR (Sans/Serif/Mono) |
 | 입력기 | ibus-hangul |
 | 에디터/툴 | VS Code, git, zsh, starship, tmux, jq, glow |
 | 런타임 | uv (Python), nvm (Node) |
@@ -197,5 +197,5 @@ git push
 
 - chezmoi: https://www.chezmoi.io/
 - starship: https://starship.rs/
-- D2Coding Nerd Fonts: https://github.com/ryanoasis/nerd-fonts
+- D2Koding Nerd Fonts: https://github.com/ryanoasis/nerd-fonts (v3.5.0에서 D2Coding → D2Koding 개명, 아카이브명은 `D2Coding.tar.xz` 유지)
 - D2Coding 원본: https://github.com/naver/d2codingfont

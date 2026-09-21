@@ -89,19 +89,31 @@ case "$DISTRO" in
     ;;
 esac
 
-# ===== D2Coding Nerd Font Ligature (공통) =====
-log "D2Coding Nerd Font Ligature 설치 (한글 + Nerd 아이콘 + 리가처 통합)"
-if ! fc-list | grep -qi "D2Coding.*Nerd"; then
+# ===== D2Koding Nerd Font Ligature (공통) =====
+# Nerd Fonts v3.5.0부터 패밀리/파일명이 D2Coding → D2Koding 으로 바뀌었어요.
+# 릴리스 아카이브 이름(D2Coding.tar.xz)은 그대로라 URL은 유지합니다.
+log "D2Koding Nerd Font Ligature 설치 (한글 + Nerd 아이콘 + 리가처 통합)"
+if ! fc-list | grep -qiE "D2[CK]oding.*Nerd"; then
   tmp=$(mktemp -d)
-  curl -fsSL -o "$tmp/d2coding.tar.xz" \
+  curl -fsSL -o "$tmp/d2koding.tar.xz" \
     "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/D2Coding.tar.xz"
   mkdir -p "$tmp/extract"
-  tar -xf "$tmp/d2coding.tar.xz" -C "$tmp/extract"
-  sudo mkdir -p /usr/local/share/fonts/d2coding-nerd
-  sudo find "$tmp/extract" -iname "D2CodingLigature*.ttf" -exec cp {} /usr/local/share/fonts/d2coding-nerd/ \;
+  tar -xf "$tmp/d2koding.tar.xz" -C "$tmp/extract"
+  # 구/신 파일명 양쪽 매칭 (D2CodingLigature* / D2KodingLigature*)
+  mapfile -t ttfs < <(find "$tmp/extract" -iname "D2[CK]odingLigature*.ttf" | sort)
+  if [ "${#ttfs[@]}" -eq 0 ]; then
+    warn "리가처 폰트 파일을 찾지 못했어요 — 업스트림 파일명이 또 바뀐 것 같아요."
+    warn "아카이브에 들어있는 ttf 목록:"
+    find "$tmp/extract" -name '*.ttf' -exec basename {} \; >&2
+    rm -rf "$tmp"
+    exit 1
+  fi
+  sudo mkdir -p /usr/local/share/fonts/d2koding-nerd
+  sudo cp "${ttfs[@]}" /usr/local/share/fonts/d2koding-nerd/
+  log "리가처 폰트 ${#ttfs[@]}개 설치 완료"
   rm -rf "$tmp"
 else
-  log "D2Coding Nerd Font 이미 설치됨 — 건너뜀"
+  log "D2Koding Nerd Font 이미 설치됨 — 건너뜀"
 fi
 log "폰트 캐시 갱신"
 sudo fc-cache -f

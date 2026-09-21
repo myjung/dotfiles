@@ -7,7 +7,7 @@ Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop)와 Fedora(laptop
 - **chezmoi** v2.70.1 (`/snap/bin/chezmoi`) — dotfiles 관리자
 - **zsh** — 기본 셸
 - **starship** — 프롬프트 (Tokyo Night + Nerd Font Symbols 통합 프리셋)
-- **D2Coding Nerd Font Ligature** — 한글 + Nerd 아이콘 + 리가처 통합 폰트
+- **D2Koding Nerd Font Ligature** — 한글 + Nerd 아이콘 + 리가처 통합 폰트
 
 ## chezmoi 규칙
 - 소스 디렉터리: `~/.local/share/chezmoi` (= GitHub repo 루트)
@@ -45,7 +45,9 @@ OS 분기 예시:
 - `~/.zshrc` 등 홈 디렉터리 파일을 chezmoi를 거치지 않고 직접 수정 금지
 
 ## 폰트
-D2Coding Nerd Font Ligature 사용. 한글 글리프 + Nerd 아이콘(U+E700+ PUA) + 리가처가 모두 한 폰트에 통합되어 있어요. starship 등에서 Nerd Font 아이콘 자유롭게 사용 가능.
+D2Koding Nerd Font Ligature 사용. 한글 글리프 + Nerd 아이콘(U+E700+ PUA) + 리가처가 모두 한 폰트에 통합되어 있어요. starship 등에서 Nerd Font 아이콘 자유롭게 사용 가능.
+
+터미널/에디터에 지정할 패밀리명은 **`D2KodingLigature Nerd Font`** (Mono 고정폭이 필요하면 `D2KodingLigature Nerd Font Mono`). Nerd Fonts v3.5.0부터 `D2Coding` → `D2Koding` 으로 개명돼서 예전 이름으로는 폰트를 못 찾아요.
 
 ## 작업 흐름
 ```sh
