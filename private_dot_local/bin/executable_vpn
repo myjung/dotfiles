@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# NetworkManager WireGuard 연결 켜기/끄기.
+# 사용법: vpn                      대화형 메뉴 (연결 선택 → 켜기/끄기)
+#         vpn on|off|toggle [이름]  바로 실행 (연결이 하나뿐이면 이름 생략 가능)
+#         vpn status               WireGuard 연결 상태 출력
+set -euo pipefail
+
+mapfile -t conns < <(nmcli -t -f NAME,TYPE connection show | sed -n 's/:wireguard$//p')
+if [[ ${#conns[@]} -eq 0 ]]; then
+    echo "등록된 WireGuard 연결이 없습니다. (nmcli connection import type wireguard file <conf>)" >&2
+    exit 1
+fi
+
+is_active() {
+    nmcli -t -f NAME connection show --active | grep -qxF "$1"
+}
+
+status() {
+    local c
+    for c in "${conns[@]}"; do
+        if is_active "$c"; then
+            printf '  \e[32m●\e[0m %-16s 켜짐  %s\n' "$c" "$(nmcli -g ipv4.addresses connection show "$c")"
+        else
+            printf '  \e[90m○\e[0m %-16s 꺼짐\n' "$c"
+        fi
+    done
+}
+
+turn_on() {
+    nmcli connection up "$1" >/dev/null
+    echo "$1 켰습니다."
+}
+
+turn_off() {
+    nmcli connection down "$1" >/dev/null
+    echo "$1 껐습니다."
+}
+
+toggle() {
+    if is_active "$1"; then turn_off "$1"; else turn_on "$1"; fi
+}
+
+resolve() {
+    if [[ -n "${1:-}" ]]; then
+        printf '%s\n' "${conns[@]}" | grep -qxF "$1" || { echo "WireGuard 연결 '$1'이(가) 없습니다." >&2; exit 1; }
+        echo "$1"
+    elif [[ ${#conns[@]} -eq 1 ]]; then
+        echo "${conns[0]}"
+    else
+        echo "연결이 여러 개입니다. 이름을 지정하세요: ${conns[*]}" >&2
+        exit 1
+    fi
+}
+
+case "${1:-}" in
+    on|off|toggle)
+        target=$(resolve "${2:-}")
+        case "$1" in on) turn_on "$target" ;; off) turn_off "$target" ;; *) toggle "$target" ;; esac
+        ;;
+    status) status ;;
+    "")
+        echo "WireGuard 연결:"
+        status
+        echo
+        if [[ ${#conns[@]} -eq 1 ]]; then
+            target=${conns[0]}
+        else
+            PS3="연결 선택 (번호, Ctrl+C 취소): "
+            select target in "${conns[@]}"; do [[ -n "$target" ]] && break; done
+        fi
+        if is_active "$target"; then
+            read -rp "$target 연결을 끌까요? [Y/n] " ans
+        else
+            read -rp "$target 연결을 켤까요? [Y/n] " ans
+        fi
+        [[ "$ans" =~ ^[Nn]$ ]] && { echo "취소했습니다."; exit 0; }
+        toggle "$target"
+        echo
+        status
+        ;;
+    *)
+        sed -n '2,5p' "$0" | sed 's/^# \{0,1\}//'
+        exit 1
+        ;;
+esac
