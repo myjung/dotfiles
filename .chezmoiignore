@@ -11,6 +11,8 @@ setup
 .config/shell/**
 .config/fontconfig
 .config/fontconfig/**
+.config/niri
+.config/niri/**
 .local/bin/vault
 # knowledge-vault CLI가 bash 전용이라 Windows에서는 skill도 제외
 .claude/skills/vault
@@ -22,4 +24,9 @@ Documents
 Documents/**
 AppData
 AppData/**
+{{ end -}}
+
+# niri 메인 설정은 Linux 데스크톱 전용 (HDMI 더미 출력·DMS include 포함). custom.kdl은 공통.
+{{ if ne .role "desktop" -}}
+.config/niri/config.kdl
 {{ end -}}

@@ -1,0 +1,6 @@
+// 개인 바인딩 — DMS가 config.kdl / dms/*.kdl 을 다시 써도 영향받지 않도록 분리
+binds {
+    // niri는 GlobalShortcuts portal을 지원하지 않아 1Password 자체 단축키가 동작하지 않음.
+    // 1Password 설정의 Quick Access 단축키 대신 niri에서 직접 호출한다.
+    Ctrl+Shift+Space hotkey-overlay-title="1Password Quick Access" { spawn "1password" "--quick-access"; }
+}
