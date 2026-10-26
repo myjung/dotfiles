@@ -3,3 +3,23 @@ CLAUDE.md
 packages.md
 setup
 .gitignore
+
+{{ if eq .chezmoi.os "windows" -}}
+# ===== Linux 전용 (Windows에서는 적용 안 함) =====
+.zshrc
+.config/shell
+.config/shell/**
+.config/fontconfig
+.config/fontconfig/**
+.local/bin/vault
+# knowledge-vault CLI가 bash 전용이라 Windows에서는 skill도 제외
+.claude/skills/vault
+.claude/skills/vault/**
+{{ else -}}
+# ===== Windows 전용 (Linux에서는 적용 안 함) =====
+.gitconfig
+Documents
+Documents/**
+AppData
+AppData/**
+{{ end -}}

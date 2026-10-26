@@ -1,0 +1,19 @@
+[user]
+	name = rey-win
+	email = hexagramxix@gmail.com
+[core]
+	# 1Password SSH agent는 Windows OpenSSH 파이프로만 접근 가능 (Git 내장 ssh는 못 씀)
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+[windows]
+	appendAtomically = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

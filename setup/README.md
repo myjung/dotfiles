@@ -14,6 +14,53 @@ bash ~/.local/share/chezmoi/setup/install.sh
 
 ---
 
+## install.ps1 (Windows)
+
+일반 권한 PowerShell에서 실행해요. 관리자 권한이 필요한 구간(winget, 시스템 설정)은 스크립트가 UAC 창으로 따로 띄워요.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File $HOME\.local\share\chezmoi\setup\install.ps1
+```
+
+| 단계 | 내용 |
+|---|---|
+| scoop | 설치 → `no_junction` 켜기 → 버킷(extras, java, nerd-fonts) → 앱 |
+| 런타임 | `uv python install 3.13 --default`, `nvm install lts` |
+| winget (관리자) | 1Password, Epic Games Launcher, Visual Studio 2026 (UE 5.8 구성 요소) |
+| 시스템 (관리자) | 빠른 시작·최대 절전 끄기, 개발자 모드, OpenSSH 서버 + 기본 셸 pwsh |
+
+파일은 **BOM 있는 UTF-8**로 저장해야 해요. Windows PowerShell 5.1은 BOM이 없으면 한글을 CP949로 읽어서 주석 뒤의 코드 줄이 깨져요.
+
+### 수동 단계
+
+**sshd 접속 키 등록.** 관리자 계정은 `~\.ssh\authorized_keys`가 아니라 아래 파일을 읽어요. 키는 1Password에서 만들고 공개 키만 가져와요.
+
+```powershell
+# 관리자 PowerShell
+$f = 'C:\ProgramData\ssh\administrators_authorized_keys'
+op read "op://Personal/<항목>/public key" | Add-Content $f -Encoding ascii
+icacls $f /inheritance:r /grant '*S-1-5-32-544:F' /grant '*S-1-5-18:F'   # Administrators, SYSTEM만
+```
+
+**OBS 가상 카메라.** scoop OBS는 등록이 안 된 상태로 설치돼요. `no_junction`이라 `current`가 아닌 버전 경로로 등록되므로, OBS를 업데이트하면 다시 등록해야 해요.
+
+```powershell
+# 관리자 PowerShell
+$d = (Resolve-Path "$env:USERPROFILE\scoop\apps\obs-studio\*\core\win-dshow\data" | Select-Object -Last 1).Path
+regsvr32 /i /s "$d\obs-virtualcam-module32.dll"
+regsvr32 /i /s "$d\obs-virtualcam-module64.dll"
+```
+
+**OBS Spout 플러그인.** [obs-spout2-plugin](https://github.com/Off-World-Live/obs-spout2-plugin) 릴리스의 파일을 scoop persist에 넣어요 (`~\scoop\persist\obs-studio\obs-plugins\64bit\`에 dll, `~\scoop\persist\obs-studio\data\obs-plugins\win-spout\`에 locale).
+
+**Claude Code** (Windows):
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+---
+
 ## Wine + KakaoTalk 별도 설치
 
 Wine 저장소 상황이 배포판 버전마다 달라(특히 Ubuntu 25.10의 WoW64 구조 변경, 26.04는 WineHQ 저장소 아직 없음) 자동화에서 분리. KakaoTalk 용도면 배포판 기본 저장소의 wine으로 충분합니다.

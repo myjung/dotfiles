@@ -1,11 +1,11 @@
 # CLAUDE.md — dotfiles 프로젝트 지침
 
 ## 프로젝트 개요
-Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop)와 Fedora(laptop) 환경을 통일한다.
+Rey의 개인 dotfiles. chezmoi로 관리하며 Ubuntu(desktop), Fedora(laptop), Windows 11(desktop 듀얼부트) 환경을 통일한다.
 
 ## 도구 스택
-- **chezmoi** v2.70.1 (`/snap/bin/chezmoi`) — dotfiles 관리자
-- **zsh** — 기본 셸
+- **chezmoi** — dotfiles 관리자 (Linux: snap `/snap/bin/chezmoi`, Windows: scoop)
+- **zsh** — 기본 셸 (Linux) / **pwsh 7** — 기본 셸 (Windows, scoop)
 - **starship** — 프롬프트 (Tokyo Night + Nerd Font Symbols 통합 프리셋)
 - **D2Koding Nerd Font Ligature** — 한글 + Nerd 아이콘 + 리가처 통합 폰트
 
@@ -40,9 +40,19 @@ OS 분기 예시:
 {{ end }}
 ```
 
+`.chezmoi.osRelease`는 Linux에만 있어요. Windows와 나눌 때는 `.chezmoi.os`(`"windows"` / `"linux"`)를 써요.
+
+## Windows / Linux 분리
+- 어느 OS에 어떤 파일을 적용할지는 `.chezmoiignore`(템플릿)에서 `.chezmoi.os`로 나눈다. 새 파일을 추가하면 한쪽 OS 전용인지 꼭 확인하고 반대쪽 ignore 목록에 넣는다.
+- Windows 전용: `dot_gitconfig`, `Documents/PowerShell/...`(pwsh 프로필), `AppData/.../WindowsTerminal.../settings.json`
+- Linux 전용: `dot_zshrc.tmpl`, `dot_config/shell`, `dot_config/fontconfig`, vault 심볼릭 링크와 skill
+- 공통: `dot_config/starship.toml`
+- Windows 설정에 scoop의 `apps\<앱>\current` 경로를 쓰지 않는다 (`no_junction` 사용 중, SSH 세션에서 링크 폴더 접근 불가). `scoop\shims\<명령>.exe`나 persist 경로를 쓴다.
+- `.ps1` 파일은 BOM 있는 UTF-8로 저장한다 (Windows PowerShell 5.1 호환).
+
 ## 금지 사항
 - 셸 설정에 git alias(`g`, `ga`, `gc` 등) 추가 금지
-- `~/.zshrc` 등 홈 디렉터리 파일을 chezmoi를 거치지 않고 직접 수정 금지
+- `~/.zshrc`, pwsh 프로필 등 홈 디렉터리 파일을 chezmoi를 거치지 않고 직접 수정 금지
 
 ## 폰트
 D2Koding Nerd Font Ligature 사용. 한글 글리프 + Nerd 아이콘(U+E700+ PUA) + 리가처가 모두 한 폰트에 통합되어 있어요. starship 등에서 Nerd Font 아이콘 자유롭게 사용 가능.

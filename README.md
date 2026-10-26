@@ -1,13 +1,13 @@
 # dotfiles
 
-Rey의 개인 환경 설정. [chezmoi](https://www.chezmoi.io/)로 관리하며 Ubuntu(desktop)와 Fedora(laptop)를 통일한다.
+Rey의 개인 환경 설정. [chezmoi](https://www.chezmoi.io/)로 관리하며 Ubuntu(desktop), Fedora(laptop), Windows 11(desktop 듀얼부트)을 통일한다.
 
 ## 환경
 
 | 항목 | 값 |
 |------|----|
-| OS | Ubuntu 25.10 / 26.04 LTS (desktop), Fedora 43 / 44 (laptop) |
-| Shell | zsh |
+| OS | Ubuntu 25.10 / 26.04 LTS (desktop), Fedora 43 / 44 (laptop), Windows 11 (desktop 듀얼부트) |
+| Shell | zsh (Linux) / pwsh 7 (Windows) |
 | Prompt | starship |
 | Font | D2Koding Nerd Font (Ligature) — 한글 + Nerd 아이콘 + 리가처 통합 |
 | 관리 도구 | chezmoi |
@@ -29,6 +29,21 @@ bash ~/.local/share/chezmoi/setup/install.sh
 
 1단계가 `chezmoi` 바이너리 설치와 `~/.local/share/chezmoi`로의 clone, 홈 디렉터리 적용까지 한 번에 처리합니다. `role`(desktop/laptop)을 프롬프트로 물어보고 `~/.config/chezmoi/chezmoi.toml`을 자동 생성해요.
 
+### Windows
+
+일반 권한 PowerShell에서 실행해요 (scoop은 관리자 실행을 거부해요. 관리자 구간은 스크립트가 UAC로 따로 띄워요).
+
+```powershell
+# 1. 패키지 설치 (scoop → uv/nvm → winget, 시스템 설정)
+irm https://raw.githubusercontent.com/myjung/dotfiles/main/setup/install.ps1 -OutFile $env:TEMP\install.ps1
+powershell -ExecutionPolicy Bypass -File $env:TEMP\install.ps1
+
+# 2. 1Password 앱에서 SSH agent·CLI 연동을 켠 뒤 dotfiles 적용
+chezmoi init --apply git@github.com:myjung/dotfiles.git
+```
+
+같은 홈 경로 구조를 쓰지만 OS별로 적용 대상이 달라요. 어떤 파일이 어느 OS에 적용되는지는 `.chezmoiignore`에서 `.chezmoi.os`로 나눠요.
+
 ---
 
 ## 파일 구조
@@ -44,8 +59,14 @@ bash ~/.local/share/chezmoi/setup/install.sh
 │   └── skills/vault/SKILL.md      → ~/.claude/skills/vault/SKILL.md
 ├── private_dot_local/
 │   └── bin/symlink_vault.tmpl     → ~/.local/bin/vault (symlink → ~/knowledge-vault/bin/vault)
+├── dot_gitconfig                  → ~/.gitconfig                      (Windows 전용)
+├── Documents/PowerShell/
+│   └── Microsoft.PowerShell_profile.ps1  → pwsh 프로필              (Windows 전용)
+├── AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/
+│   └── settings.json              → Windows Terminal 설정            (Windows 전용)
 └── setup/                         패키지 설치 스크립트 (chezmoi 무시)
     ├── install.sh                 Ubuntu/Fedora 공통 설치
+    ├── install.ps1                Windows 설치 (scoop/winget + 시스템 설정)
     ├── README.md                  Docker/Wine 등 별도 설치 안내
     ├── diceware.sh                가끔 쓰는 패스프레이즈 생성기
     └── eff_large_wordlist.txt
@@ -126,6 +147,21 @@ Docker, Wine, Claude Code는 별도 — [setup/README.md](./setup/README.md) 참
 | 입력 문자 | 녹색/빨강 | `❯` (성공/실패), Vim 모드 `❮` |
 
 `rust`, `golang`, `php` 등 다른 모듈 심볼도 정의되어 있지만, 현재 `format` 문자열에 포함되지 않아 기본 프롬프트 라인에는 표시되지 않습니다.
+
+### Windows
+
+| 항목 | 내용 |
+|------|------|
+| 패키지 | scoop 우선, scoop에 없는 것(1Password 앱, Epic Launcher, Visual Studio)만 winget |
+| scoop `no_junction` | 켜 둠. SSH 세션은 scoop의 `apps\<앱>\current` 링크 폴더를 따라가지 못해서, shim·PATH가 버전 경로를 직접 가리키게 함. 설정에 `current` 경로를 쓰지 않는다 |
+| 런타임 | uv (Python 3.13), nvm-windows (Node LTS) — Linux와 같은 구성 |
+| pwsh 프로필 | starship, UTF-8, Emacs 키 + 위/아래 화살표 접두어 히스토리 검색, `ll`/`la`/`lt`/`..`/`path`/`reload` (zsh 설정과 맞춤) |
+| Windows Terminal | 기본 프로필 scoop pwsh (`scoop\shims\pwsh.exe`), 폰트 `D2KodingLigature Nerd Font Mono` |
+| `.gitconfig` | git이 Windows OpenSSH를 쓰게 함 (`core.sshCommand`). Git 내장 ssh는 1Password SSH agent(Windows 파이프)에 접근하지 못함. GitHub HTTPS 인증은 `gh` |
+| sshd | 기본 셸 `scoop\shims\pwsh.exe`. 관리자 계정은 `C:\ProgramData\ssh\administrators_authorized_keys`를 읽음 |
+| Visual Studio 2026 | UE 5.8 `Windows_SDK.json`의 권장 구성 요소. MSVC 14.50 LTSC 구성 요소는 UE가 차단한 빌드(14.50.35717)라 넣지 않음 |
+
+Windows Terminal은 설정 화면에서 바꾸면 `settings.json`을 직접 고쳐요. 바꾼 뒤에는 `chezmoi re-add`로 소스에 반영해요.
 
 ### knowledge-vault 연동
 
